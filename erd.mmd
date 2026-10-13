@@ -1,0 +1,16 @@
+erDiagram
+  USER ||--|| USER_PROFILE : has
+  USER ||--o{ MATCH_RESULT : receives
+  SCHOLARSHIP ||--o{ MATCH_RESULT : matched_to
+  USER ||--o{ SAVED_SCHOLARSHIP : saves
+  SCHOLARSHIP ||--o{ SAVED_SCHOLARSHIP : saved_by
+  USER ||--o{ APPLICATION : submits
+  SCHOLARSHIP ||--o{ APPLICATION : receives
+  SCHOLARSHIP ||--o{ SCHOLARSHIP_TAG : has
+  ELIGIBILITY_TAG ||--o{ SCHOLARSHIP_TAG : classifies
+  USER_PROFILE ||--o{ USER_PROFILE_TAG : has
+  ELIGIBILITY_TAG ||--o{ USER_PROFILE_TAG : matches
+  USER ||--o{ IMPORT_BATCH : uploads
+  IMPORT_BATCH ||--o{ IMPORT_ERROR : contains
+  IMPORT_BATCH ||--o{ SCHOLARSHIP : creates
+  USER ||--o{ AUDIT_LOG : performs

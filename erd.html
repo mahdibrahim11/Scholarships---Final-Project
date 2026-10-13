@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Scholarship ERD</title><link rel="stylesheet" href="styles.css"></head>
+<body><header class="site-header"><h1>Scholarship System ERD</h1><p>Entity-relationship design for the scholarship import, search, match, and admin features.</p></header><main class="container">
+<div class="erd-wrap"><h2>Assumption</h2><p>This ERD is based on the required screens: Home, Import, Import Validation Report, Admin Scholarship List, Scholarship Edit, Search Results, Scholarship Detail, My Matches, Login/Register, and User Management.</p></div>
+<div class="erd-wrap"><h2>Entities</h2><div class="erd-grid">
+<div class="entity"><h3>User</h3><ul><li><b>PK</b> user_id</li><li>first_name</li><li>last_name</li><li>email</li><li>password_hash</li><li>role</li><li>status</li><li>created_at</li></ul></div>
+<div class="entity"><h3>UserProfile</h3><ul><li><b>PK</b> profile_id</li><li><b>FK</b> user_id</li><li>major</li><li>gpa</li><li>academic_level</li><li>state</li><li>financial_need</li><li>citizenship_status</li></ul></div>
+<div class="entity"><h3>Scholarship</h3><ul><li><b>PK</b> scholarship_id</li><li>title</li><li>provider</li><li>amount_min</li><li>amount_max</li><li>deadline</li><li>description</li><li>apply_url</li><li>status</li><li><b>FK</b> import_batch_id</li></ul></div>
+<div class="entity"><h3>EligibilityTag</h3><ul><li><b>PK</b> tag_id</li><li>tag_name</li><li>category</li></ul></div>
+<div class="entity"><h3>ScholarshipTag</h3><ul><li><b>PK/FK</b> scholarship_id</li><li><b>PK/FK</b> tag_id</li></ul></div>
+<div class="entity"><h3>UserProfileTag</h3><ul><li><b>PK/FK</b> profile_id</li><li><b>PK/FK</b> tag_id</li></ul></div>
+<div class="entity"><h3>MatchResult</h3><ul><li><b>PK</b> match_id</li><li><b>FK</b> user_id</li><li><b>FK</b> scholarship_id</li><li>match_score</li><li>match_reason</li><li>created_at</li></ul></div>
+<div class="entity"><h3>SavedScholarship</h3><ul><li><b>PK/FK</b> user_id</li><li><b>PK/FK</b> scholarship_id</li><li>saved_at</li></ul></div>
+<div class="entity"><h3>Application</h3><ul><li><b>PK</b> application_id</li><li><b>FK</b> user_id</li><li><b>FK</b> scholarship_id</li><li>status</li><li>notes</li><li>applied_at</li></ul></div>
+<div class="entity"><h3>ImportBatch</h3><ul><li><b>PK</b> import_batch_id</li><li><b>FK</b> uploaded_by_user_id</li><li>file_name</li><li>status</li><li>rows_total</li><li>rows_valid</li><li>rows_invalid</li><li>created_at</li></ul></div>
+<div class="entity"><h3>ImportError</h3><ul><li><b>PK</b> error_id</li><li><b>FK</b> import_batch_id</li><li>row_number</li><li>field_name</li><li>error_message</li></ul></div>
+<div class="entity"><h3>AuditLog</h3><ul><li><b>PK</b> audit_id</li><li><b>FK</b> user_id</li><li>action</li><li>entity_type</li><li>entity_id</li><li>created_at</li></ul></div>
+</div></div>
+<div class="erd-wrap"><h2>Relationships</h2>
+<div class="rel">User 1 — 1 UserProfile</div>
+<div class="rel">User 1 — many MatchResult; Scholarship 1 — many MatchResult</div>
+<div class="rel">User many — many Scholarship through SavedScholarship</div>
+<div class="rel">User many — many Scholarship through Application</div>
+<div class="rel">Scholarship many — many EligibilityTag through ScholarshipTag</div>
+<div class="rel">UserProfile many — many EligibilityTag through UserProfileTag</div>
+<div class="rel">User 1 — many ImportBatch; ImportBatch 1 — many ImportError</div>
+<div class="rel">ImportBatch 1 — many Scholarship</div>
+<div class="rel">User 1 — many AuditLog</div>
+</div>
+<div class="erd-wrap"><h2>Mermaid ERD Source</h2><pre>
+erDiagram
+  USER ||--|| USER_PROFILE : has
+  USER ||--o{ MATCH_RESULT : receives
+  SCHOLARSHIP ||--o{ MATCH_RESULT : matched_to
+  USER ||--o{ SAVED_SCHOLARSHIP : saves
+  SCHOLARSHIP ||--o{ SAVED_SCHOLARSHIP : saved_by
+  USER ||--o{ APPLICATION : submits
+  SCHOLARSHIP ||--o{ APPLICATION : receives
+  SCHOLARSHIP ||--o{ SCHOLARSHIP_TAG : has
+  ELIGIBILITY_TAG ||--o{ SCHOLARSHIP_TAG : classifies
+  USER_PROFILE ||--o{ USER_PROFILE_TAG : has
+  ELIGIBILITY_TAG ||--o{ USER_PROFILE_TAG : matches
+  USER ||--o{ IMPORT_BATCH : uploads
+  IMPORT_BATCH ||--o{ IMPORT_ERROR : contains
+  IMPORT_BATCH ||--o{ SCHOLARSHIP : creates
+  USER ||--o{ AUDIT_LOG : performs
+</pre></div>
+</main></body></html>
