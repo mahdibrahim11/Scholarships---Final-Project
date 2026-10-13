@@ -1,15 +1,21 @@
-Scholarship UI Assignment
+Iteration 2 - Database Foundation and Site Skeleton
 
 Files included:
-1. wireframes.html - Low-fidelity desktop and mobile wireframes for all required screens.
-2. erd.html - ERD write-up with entities, attributes, and relationships.
-3. erd.mmd - Mermaid ERD source code.
-4. home.html - Static Bootstrap Home page with navigation, header, content, and footer.
-5. styles.css - Shared CSS for the wireframes and ERD pages.
+1. 01_schema.sql
+   - Creates the scholarship application database tables.
+   - Includes users, roles, reference tables, scholarships, providers, junction tables, import tables, contact messages, applications, saved scholarships, and audit log.
+   - Includes primary keys, foreign keys, unique keys, and indexes.
+   - Includes nullable acting/audit user columns such as created_by_user_id, updated_by_user_id, deleted_by_user_id, and acting_user_id where appropriate.
 
-How to view:
-- Double-click any HTML file to open it in a browser.
-- Submit the HTML files as assignment artifacts, or take screenshots from the pages if your instructor wants images.
+2. 02_seed.sql
+   - Inserts all 50 states plus National.
+   - Inserts grade levels 6-12.
+   - Inserts categories, fields of study, provider types, 29 national themes, five roles, and a placeholder development user.
+   - Includes two sample providers and two sample scholarships to help prove the stack works end-to-end.
 
-Note:
-The ERD is based on the scholarship system screens listed in the assignment. If Section 6 has a more specific database description, adjust the ERD names/fields to match it.
+Suggested use:
+Run 01_schema.sql first, then run 02_seed.sql.
+
+Example:
+mysql -u your_user -p your_database < 01_schema.sql
+mysql -u your_user -p your_database < 02_seed.sql
