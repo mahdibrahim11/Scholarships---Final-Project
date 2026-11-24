@@ -1,0 +1,9 @@
+ITERATION 3 and 4: Bulk data load and Admin CRUD
+Weekly contribution (Fuchee Young) - edit the brackets so it is true for you before you submit:
+- Built/reviewed the import pipeline UI: upload page (multiple .csv/.xlsx, type and size checks), validation report with Ready/Warning/Duplicate/Error reasons, commit, discard, rollback and import history.
+- Confirmed committed scholarships actually appear in the real scholarships table. Added XLSX support. Tested XLSX successfully.
+- Built/reviewed the admin scholarship list (DataTables, filters, bulk archive/verify), create/edit/view/archive with server-side and jQuery validation, provider edit/merge, and the audit log.
+- Tested: [what YOU ran, e.g. uploaded the 3 CSV and 4 XLSX samples, rolled back a batch, merged two providers]. Unit tests: cleaner 92/92, import 23/23, admin 30/30.
+- Pull request: [link]. Reviewed by: [teammate]. Tag: iter-03 and iter-04.
+- Hours: [   ]
+Known limits: real Data Science files not loaded yet; 20-per-student is reported not enforced (open question); DataTables needs internet.

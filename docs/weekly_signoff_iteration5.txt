@@ -1,0 +1,12 @@
+ITERATION 5: Scholarship Search (Core Feature)
+Weekly contribution (Fuchee Young) - edit the brackets so it is true for you before you submit:
+- Built/reviewed the public search page with the three mandatory filters (state, grade, field of study) plus additional filters (category, school level, national theme, award size, deadline window, GPA, no essay / no financial need / no recommendation, renewable).
+- Added keyword search, four sort orders and pagination (20 per page), and AJAX filtering with jQuery so results update without a page reload (address bar updates and Back/Forward work; the form still works with JavaScript off).
+- Expired scholarships are hidden by default with an "include past deadlines" option.
+- Built the scholarship detail page with the official URL (opens in a new tab) and the last-verified date; archived scholarships are not shown publicly.
+- Responsive results: cards on phones and tablets, table on desktop. Home quick search now goes to the search page with the choices kept.
+- Anonymous search logging: state, grade and field only (no keyword, user or IP).
+- Tested: [what YOU ran, e.g. tried each filter, keyword, sort and paging on the demo data; opened a detail page; checked on a phone-size window]. Automated: search 91/91, cleaner 96/96, import 23/23, admin 30/30.
+- Pull request: [link]. Reviewed by: [teammate]. Tag: iter-05.
+- Hours: [   ]
+Known limits: needs the real class dataset imported to show real scholarships; jQuery and Bootstrap load from CDNs (internet needed); open questions 13-15 for the instructor.

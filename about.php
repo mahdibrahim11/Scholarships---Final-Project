@@ -1,44 +1,10 @@
 <?php
-
-$pageTitle = "About - Scholarship Finder";
-
-require_once __DIR__ . '/includes/header.php';
-
+require_once __DIR__ . '/includes/bootstrap.php';
+$pageTitle = 'About';
+require __DIR__ . '/includes/header.php';
 ?>
-
-<div class="row justify-content-center">
-    <div class="col-lg-8">
-
-        <h1 class="mb-4">About Scholarship Finder</h1>
-
-        <p>
-            Scholarship Finder is designed to help students and families
-            find scholarship opportunities that match their educational
-            interests and needs.
-        </p>
-
-        <p>
-            The website provides scholarship information in one convenient
-            location so students can learn about available opportunities,
-            eligibility requirements, deadlines, and award information.
-        </p>
-
-        <h2 class="mt-4">Our Goal</h2>
-
-        <p>
-            Our goal is to make searching for scholarships easier and more
-            accessible for students in grades 6 through 12 and their families.
-        </p>
-
-        <h2 class="mt-4">Who Can Use the Site?</h2>
-
-        <p>
-            Students, parents, and visitors can browse scholarship information.
-            Administrators will eventually be able to manage scholarship
-            information and other website content.
-        </p>
-
-    </div>
-</div>
-
-<?php require_once __DIR__ . '/includes/footer.php'; ?>
+<h1>About this site</h1>
+<p class="lead">Scholarship information for younger students is scattered across dozens of sites. This project gathers it in one place.</p>
+<p>The data was collected by students in a Data Science class at Metropolitan State University. Each student covered a state and a national theme. A second class (Web Application Development) built this site to load, clean, and de-duplicate their files into one nationwide list.</p>
+<p>Every scholarship links to its official page and shows the date we last checked it. Amounts and deadlines change, so always confirm at the source before you apply.</p>
+<?php require __DIR__ . '/includes/footer.php'; ?>
