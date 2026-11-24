@@ -1,0 +1,13 @@
+ITERATION 8: Student and Parent Features
+Weekly contribution (Fuchee Young) - edit the brackets so it is true for you before you submit:
+- Built student profiles (grade, state, interests) and parent management of up to 8 child profiles, with client-side and server-side validation and no personal data beyond a nickname (FR-USER-01, 02).
+- Built "My Matches": scholarships that fit the profile's state (plus national), grade, interests and open deadlines, using the same filter code as public search, with a "why it matches" line on each (FR-USER-03).
+- Built save / un-save with an AJAX toggle on search results, scholarship detail pages and My Matches; the saved state survives the results refreshing (FR-USER-04).
+- Built application status tracking (Interested, In Progress, Submitted, Awarded, Not Awarded) on the Saved page, updating without a reload and with a no-JavaScript fallback (FR-USER-05).
+- Built the Upcoming Deadlines view with due-soon (7 days or less) and due-month highlighting; the number of days is always written out so colour is not the only signal (FR-USER-06).
+- Built the parent Family dashboard showing every child's saved scholarships and the next 60 days of deadlines in one place.
+- Isolation: every profile id from a URL, form or AJAX call is checked against the signed-in owner; another family's profile answers exactly like a missing one. tests/family_test.php tries changed ids in addresses and AJAX calls (including odd values and a forged session) and checks the database did not change.
+- Tested: [what YOU ran, e.g. created a parent with two children, saved and un-saved from search and detail pages, changed a status, looked at the Deadlines colours, then signed in as a second parent and changed the profile number in the address bar]. Automated: family 101/101, access matrix 366/366, auth 73/73, cleaner 107/107, import 23/23, admin 30/30, search 91/91, quality 125/125; browser check passed at desktop and phone width.
+- Pull request: [link]. Reviewed by: [teammate]. Tag: iter-08.
+- Hours: [   ]
+Known limits: matches are based on state, grade and interests only (not GPA or essay preferences); "upcoming" counts only items still marked Interested or In Progress; no email reminders (the project has no mail server); requirement ID mapping is assumed; existing databases need sql/008_iteration8_changes.sql; open questions 31-36 for the instructor.

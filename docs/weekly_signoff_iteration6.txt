@@ -1,0 +1,13 @@
+ITERATION 6: Data Quality, Export, and Dashboards
+Weekly contribution (Fuchee Young) - edit the brackets so it is true for you before you submit:
+- Built the data quality dashboard: expired deadlines, stale verification dates (180+ days or never), records missing key fields, and possible duplicates, with counts, lists and CSV download (FR-DQ-01 to 03).
+- Built the coverage report by state (50 + DC), national theme (29) and student, with gaps and thin coverage flagged in words and color; per-student target selectable at 20/40/60.
+- Built CSV export of the full or filtered dataset using the template column names (Excel-safe, formula-injection guarded).
+- Added a combined-file tool and a "Contributing student" column so one CSV can carry every student's rows into the database.
+- Built the public Scholarship Facts page (FR-DASH-01) and the admin dashboard (FR-DASH-02) with summary cards and Chart.js charts, each with an accessible numbers table.
+- Added an Import issues report to send data problems back to the instructor.
+- Updated my own dataset: Young_Fuchee.xlsx / .csv (CA providers N-Z and national religious/faith-based N-Z), 9 verified rows so far.
+- Tested: [what YOU ran, e.g. opened each dashboard on the demo data, downloaded a filtered export and opened it in Excel, checked at phone width]. Automated: quality 125/125, cleaner 107/107, import 23/23, admin 30/30, search 91/91; browser check passed.
+- Pull request: [link]. Reviewed by: [teammate]. Tag: iter-06.
+- Hours: [   ]
+Known limits: I do not have the real round-2 class files, so loading them is supported by the tools only; I have 9 of 20 scholarships; the 20-per-student target is reported, not enforced; requirement ID mapping is assumed; charts need a CDN; open questions 16-22 for the instructor. Existing databases need sql/006_iteration6_changes.sql.

@@ -1,0 +1,14 @@
+ITERATION 7: Authentication, RBAC, and User Management
+Weekly contribution (Fuchee Young) - edit the brackets so it is true for you before you submit:
+- Built registration for Student and Parent with client-side and server-side validation; the role is whitelisted on the server so a tampered form cannot create an administrator (FR-AUTH-01).
+- Built login/logout with sessions, password_hash()/password_verify(), session id regeneration at login, an inactivity timeout (30 minutes) and a sign-in lockout after repeated failures (FR-AUTH-02 to 04).
+- Implemented require_role() and current_user_id() for real; every import, admin and data quality page calls require_role(); not signed in redirects to login and back, wrong role gets a 403 (FR-AUTH-05).
+- Role-based navigation for visitor, student, parent, administrator and Super-admin; development banner removed (FR-AUTH-06).
+- Added profile and change password (current password required; other sessions end) (FR-AUTH-07).
+- Seeded Super-admin (temporary password, must change at first sign-in); the placeholder development user's records were reassigned to it and the placeholder switched off (migration 007).
+- Super-admin module: create users of any role, change roles, activate/deactivate, reset passwords (temporary password shown once), protection for the last Super-admin, reference data screens, and an audit log viewer with filters (FR-SA-01 to 05).
+- Access-control test matrix: every page and action x every role, run against the live site and recorded in docs/access_control_matrix.md, including admin URLs while logged out.
+- Tested: [what YOU ran, e.g. registered a student and a parent, signed in as each role and tried the admin URLs, changed a role and watched the menu change, tried to deactivate the last Super-admin]. Automated: auth 73/73, access matrix 316/316, cleaner 107/107, import 23/23, admin 30/30, search 91/91, quality 125/125; browser check passed at desktop and phone width.
+- Pull request: [link]. Reviewed by: [teammate]. Tag: iter-07.
+- Hours: [   ]
+Known limits: no "forgot password" email and no email verification (a Super-admin resets passwords); the seeded password is in the setup files and must be changed at first sign-in; requirement ID mapping is assumed; existing databases need sql/007_iteration7_changes.sql; open questions 23-30 for the instructor.
