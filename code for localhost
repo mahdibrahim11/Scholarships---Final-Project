@@ -1,0 +1,43 @@
+SET NAMES utf8mb4;
+
+SET @has := (SELECT COUNT(*) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'users' AND COLUMN_NAME = 'session_version');
+SET @sql := IF(@has = 0, 'ALTER TABLE users ADD COLUMN session_version INT UNSIGNED NOT NULL DEFAULT 1', 'SELECT 1');
+PREPARE s FROM @sql; EXECUTE s; DEALLOCATE PREPARE s;
+
+CREATE TABLE IF NOT EXISTS login_attempts (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  email_key VARCHAR(190) NOT NULL,
+  ip VARCHAR(45) NOT NULL,
+  succeeded TINYINT(1) NOT NULL DEFAULT 0,
+  attempted_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  KEY idx_email_time (email_key, attempted_at),
+  KEY idx_ip_time (ip, attempted_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO users (role_id, email, password_hash, display_name, is_active, must_change_password)
+SELECT 4, 'superadmin@pathways.local', '$2y$10$PPYGWrgpnPSer5rE5210n.7O9Xe0O33WIkNy5kv1sMxNG6W5biISq', 'Super Admin', 1, 1
+WHERE NOT EXISTS (SELECT 1 FROM users WHERE email = 'superadmin@pathways.local');
+
+SET @dev := (SELECT id FROM users WHERE email = 'dev-placeholder@localhost.invalid' LIMIT 1);
+SET @real := (SELECT id FROM users WHERE email = 'superadmin@pathways.local' LIMIT 1);
+UPDATE audit_log SET user_id = @real WHERE user_id = @dev AND @dev IS NOT NULL;
+UPDATE scholarships SET created_by = @real WHERE created_by = @dev AND @dev IS NOT NULL;
+UPDATE scholarships SET updated_by = @real WHERE updated_by = @dev AND @dev IS NOT NULL;
+UPDATE scholarships SET verified_by = @real WHERE verified_by = @dev AND @dev IS NOT NULL;
+UPDATE import_batches SET uploaded_by = @real WHERE uploaded_by = @dev AND @dev IS NOT NULL;
+UPDATE users SET is_active = 0, password_hash = '!' WHERE id = @dev AND @dev IS NOT NULL;
+
+
+than do this one
+
+SET NAMES utf8mb4;
+
+SET @has := (SELECT COUNT(*) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'saved_scholarships' AND COLUMN_NAME = 'status_updated_at');
+SET @sql := IF(@has = 0, 'ALTER TABLE saved_scholarships ADD COLUMN status_updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP', 'SELECT 1');
+PREPARE s FROM @sql; EXECUTE s; DEALLOCATE PREPARE s;
+
+UPDATE student_profiles p JOIN (SELECT id, ROW_NUMBER() OVER (PARTITION BY owner_user_id, display_name ORDER BY id) AS rn FROM student_profiles) d ON d.id = p.id
+   SET p.display_name = CONCAT(LEFT(p.display_name, 52), ' (', d.rn, ')') WHERE d.rn > 1;
+SET @has := (SELECT COUNT(*) FROM information_schema.STATISTICS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'student_profiles' AND INDEX_NAME = 'uq_owner_name');
+SET @sql := IF(@has = 0, 'ALTER TABLE student_profiles ADD UNIQUE KEY uq_owner_name (owner_user_id, display_name)', 'SELECT 1');
+PREPARE s FROM @sql; EXECUTE s; DEALLOCATE PREPARE s;
